@@ -104,7 +104,7 @@ export interface ProfileData {
   gender: string;
   age: string;
   bio: string;
-  profileImage?: string;
+  profile_picture?: File | null;
 }
 
 export interface ProfileUpdateResponse {

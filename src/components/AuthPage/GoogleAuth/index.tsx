@@ -1,5 +1,4 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
 
 export interface googleProp {
   isLoading: boolean;

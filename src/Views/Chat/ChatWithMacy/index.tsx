@@ -12,7 +12,7 @@ export const ChatWithMacy = () => {
   const [messageInput, setMessageInput] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { sendMessage, isLoading } = useChatWithMacy();
-  const { getMessage, macyIsLoading } = useGetChatsWithMacy();
+  const { getMessage } = useGetChatsWithMacy();
   const [messages, setMessages] = useState<ChatResponse[] | null>([]); // Store fetched messages
 
   interface Chat {
@@ -159,11 +159,12 @@ export const ChatWithMacy = () => {
 
             {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {macyIsLoading ? (
-                <div className="min-h-screen flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
-                </div>
-              ) : (
+              {
+                // macyIsLoading ? (
+                //   <div className="min-h-screen flex items-center justify-center">
+                //     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div>
+                //   </div>
+                // ) :
                 messages?.map((message) => (
                   <div
                     key={message.id}
@@ -226,24 +227,26 @@ export const ChatWithMacy = () => {
                     )}
                   </div>
                 ))
-              )}
-              <div className="flex">
-                <img
-                  src={Macy}
-                  alt="Display Pic"
-                  className="w-9 h-9 rounded-full"
-                />
-                <div
-                  className={`max-w-[70%] rounded-xl p-3 text-white text-start"bg-theme-blue rounded-br-none bg-[rgb(10,16,47)] rounded-bl-none
+              }
+              {isLoading ? (
+                <div className="flex">
+                  <img
+                    src={Macy}
+                    alt="Display Pic"
+                    className="w-9 h-9 rounded-full"
+                  />
+                  <div
+                    className={`max-w-[70%] rounded-xl p-3 text-white text-start"bg-theme-blue rounded-br-none bg-[rgb(10,16,47)] rounded-bl-none
                         `}
-                >
-                  <div className="flex space-x-2">
-                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                    <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                  >
+                    <div className="flex space-x-2">
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : null}
             </div>
 
             {/* Message Input */}
