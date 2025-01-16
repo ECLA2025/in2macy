@@ -15,6 +15,21 @@ export const useProfileUpdate = (): UseProfileUpdate => {
         
       const accessToken = localStorage.getItem('accessToken');
 
+      const formData = new FormData();
+      console.log(profileData)
+
+      formData.append('first_name', profileData.first_name);
+      formData.append('surname', profileData.surname);
+      formData.append('bio', profileData.bio);
+      formData.append('age', profileData.age);
+      formData.append('gender', profileData.gender);
+
+      if(profileData.profile_picture){
+        formData.append('profile_picture', profileData.profile_picture);
+      }
+
+      console.log("I dey here", formData.values())
+
       // API call to update profile
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/profile/`, 
@@ -22,10 +37,9 @@ export const useProfileUpdate = (): UseProfileUpdate => {
         {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Token ${accessToken}`,
         },
-        body: JSON.stringify(profileData),
+        body: formData,
       });
 
       const data = await response.json();

@@ -2,7 +2,6 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import React, { useEffect, useState } from "react";
 import Macy from "../../assets/logoDark.png";
 import Zen1 from "../../assets/zen1.png";
-import Zen2 from "../../assets/zen2.png";
 import Zen3 from "../../assets/zen3.png";
 import { useProfileUpdate } from "../../hooks/useUpdateProfile";
 import { useFetchProfile } from "../../hooks/useFetchProfile";
@@ -25,10 +24,11 @@ const ProfileRegistration = () => {
     gender: "",
     age: "",
     bio: "",
+    profile_picture: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
 
   const { updateProfile } = useProfileUpdate();
   const { fetchProfile } = useFetchProfile();
@@ -91,6 +91,7 @@ const ProfileRegistration = () => {
         gender: formData.gender!,
         age: formData.age!,
         bio: formData.bio!,
+        profile_picture: profileImage,
       };
 
       const result = await updateProfile(profileData);
@@ -109,11 +110,12 @@ const ProfileRegistration = () => {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      setProfileImage(file);
+      // const reader = new FileReader();
+      // reader.onloadend = () => {
+      //   setProfileImage(reader.result as string);
+      // };
+      // reader.readAsDataURL(file);
     }
   };
 
@@ -146,7 +148,7 @@ const ProfileRegistration = () => {
                 >
                   {profileImage ? (
                     <img
-                      src={profileImage}
+                      src={formData.profile_picture}
                       alt="Profile"
                       className="w-full h-full rounded-full object-cover"
                     />
@@ -354,7 +356,11 @@ const ProfileRegistration = () => {
             </div>
             <div className="justify-items-center">
               <div className="relative group">
-                <img src={Zen2} alt="DP" className="w-24" />
+                <img
+                  src={formData.profile_picture!}
+                  alt="DP"
+                  className="w-24 rounded-full"
+                />
                 <div className="absolute right-2 bottom-0 bg-theme-dark-blue rounded-full border border-white p-1">
                   <Icon icon={"et:camera"} className="w-3 h-3" />
                 </div>
