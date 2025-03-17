@@ -17,7 +17,6 @@ export const useFetchChat = () => {
 
     try {
       const accessToken = localStorage.getItem('accessToken');
-      console.log(accessToken)
 
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/messages/${threadID}/`, 
@@ -51,8 +50,7 @@ export const useFetchChat = () => {
       return messages
 
     } catch (error) {
-        console.log(error);
-      const chatError: ChatError = {
+  const chatError: ChatError = {
         message: error instanceof Error ? error.message : 'An unknown error occurred',
         status: error instanceof Response ? error.status : undefined
       };

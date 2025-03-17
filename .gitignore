@@ -26,3 +26,4 @@ function.py
 *.njsproj
 *.sln
 *.sw?
+.qodo

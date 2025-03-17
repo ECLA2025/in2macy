@@ -24,7 +24,7 @@ export const useStartChatFriend = () => {
       console.log(accessToken)
 
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/start-chat/`, 
+        `https://ff3e-102-89-82-102.ngrok-free.app/api/start-chat/`, 
         // '/api/start-chat/', 
         {
         method: 'POST',

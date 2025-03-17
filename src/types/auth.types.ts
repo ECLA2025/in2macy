@@ -67,8 +67,37 @@ export interface Thread {
     user1?: ThreadUser;
     user2?: ThreadUser;
     status?: string;
+    other_user_profile_picture?: string;
+    other_user_username?: string;
     last_message_timestamp?: Date;
 }
+
+
+export interface ExpectedThreads {
+  type: string;
+  threads: Thread[];
+  threadId: string[];
+};
+
+export interface ExpectedMessages {
+      sender_id: number,
+      receiver_id: number,
+      message?: string,
+      file_url?: string,
+      is_read: boolean,
+      timestamp: Date
+  }
+
+  export interface ExpectedMessageThread {
+      type: string;
+      messages?: Message[];
+      sender_id?: number,
+      receiver_id?: number,
+      message?: string,
+      file_url?: string,
+      is_read?: boolean,
+      timestamp?: Date
+  }
 
 export interface ThreadUser{
   id: number;
@@ -76,14 +105,12 @@ export interface ThreadUser{
 }
 
 export interface Message {
-  id: string,
   message: string,
-  file?: null,
+  file_url?: string,
   is_read: boolean,
   timestamp: Date,
-  thread: string,
-  sender: number,
-  reciever: number,
+  sender_id: number,
+  receiver_id: number,
 }
 
 export class ApiError extends Error {
